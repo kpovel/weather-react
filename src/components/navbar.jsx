@@ -3,15 +3,9 @@ import {Link, useResolvedPath, useMatch} from "react-router-dom";
 export default function Navbar() {
     return (
         <nav className="nav">
-            <CustomLink to="/main">
-                Now
-            </CustomLink>
-            <CustomLink to="/details">
-                Details
-            </CustomLink>
-            <CustomLink to="/forecast">
-                Forecast
-            </CustomLink>
+            <CustomLink to="/">Now</CustomLink>
+            <CustomLink to="/details">Details</CustomLink>
+            <CustomLink to="/forecast">Forecast</CustomLink>
         </nav>
     );
 }
