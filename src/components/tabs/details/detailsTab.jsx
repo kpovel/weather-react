@@ -1,17 +1,15 @@
 import {WeatherIndicator} from "./weatherIndicator";
 
-export default function DetailsTab() {
+export default function DetailsTab(props) {
     return (
-        <div className="weather-details main-tabs__block" id="tab_2">
-            <h3 className="weather-title weather-details__title">
-                Rio
-            </h3>
+        <div className="weather-details main-tabs__block">
+            <h3 className="weather-title weather-details__title">{props.cityName}</h3>
             <ul className="weather-detail__list">
-                <WeatherIndicator indicator="Temperature: " value="14°"/>
-                <WeatherIndicator indicator="Feels like: " value="10°"/>
-                <WeatherIndicator indicator="Weather: " value="cloud"/>
-                <WeatherIndicator indicator="Sunrise: " value="03:21"/>
-                <WeatherIndicator indicator="Sunset: " value="18:51"/>
+                <WeatherIndicator indicator="Temperature: " value={props.temp}/>
+                <WeatherIndicator indicator="Feels like: " value={props.feelsLike}/>
+                <WeatherIndicator indicator="Weather: " value={props.weather}/>
+                <WeatherIndicator indicator="Sunrise: " value={props.sunrise}/>
+                <WeatherIndicator indicator="Sunset: " value={props.sunset}/>
             </ul>
         </div>
     );
