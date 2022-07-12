@@ -8,7 +8,7 @@ export default function MainTab(props) {
                 alt="cloud img"/>
             <div className="weather-now__like">
                 <h3 className="title-city-now">{props.cityName}</h3>
-                <button className="weather-now__btn" heart="noChecked"/>
+                <button className="weather-now__btn" heart="noChecked" onClick={props.changeSaveCityList}/>
             </div>
         </div>
     );
