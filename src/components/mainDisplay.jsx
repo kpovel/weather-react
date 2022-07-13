@@ -2,7 +2,7 @@ import MainTab from "./tabs/mainTab";
 import DetailsTab from "./tabs/details/detailsTab";
 import ForecastTab from "./tabs/forecast/forecastTab";
 import Navbar from "./navbar";
-import {AddedLocation} from "./addedLocation";
+import {AddedLocation} from "./savedList/addedLocation";
 import {Route, Routes} from "react-router-dom";
 import {tempToCelsius} from "../utilities/formattedTemp";
 import {formatTime} from "../utilities/formatDate";
@@ -52,6 +52,15 @@ function MainDisplay({weatherNow, forecastWeather}) {
         }
     }
     
+    function deleteCityByButtonRemove(city) {
+        setSavedCities(prev => {
+            const newList = new Set(prev);
+            newList.delete(city);
+            localStorage.setItem("savedCities", JSON.stringify([...newList]));
+            return newList;
+        });
+    }
+    
     return (
         <div className="main-box">
             <div className="main-box__left">
@@ -77,7 +86,8 @@ function MainDisplay({weatherNow, forecastWeather}) {
                 <Navbar/>
             </div>
             <div className="main-box__right">
-                <AddedLocation/>
+                <AddedLocation savedCities={savedCities}
+                               deleteCity={deleteCityByButtonRemove}/>
             </div>
         </div>
     );

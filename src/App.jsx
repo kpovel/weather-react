@@ -70,13 +70,6 @@ function App() {
                                  forecastWeather={forecastWeather}/>
                 </div>
             </main>
-            
-            <template id="city-item">
-                <li className="city-list__item">
-                    <div className="city"></div>
-                    <button className="city-list__close-btn"/>
-                </li>
-            </template>
         </div>
     );
 }
