@@ -70,6 +70,7 @@ function MainDisplay({weatherNow, forecastWeather}) {
                                                           icon={weatherIcon}
                                                           temp={temp}
                                                           changeSaveCityList={changeSaveCityList}
+                                                          savedCities={savedCities}
                         />}/>
                         <Route path="/details" element={<DetailsTab cityName={cityName}
                                                                     temp={temp}
