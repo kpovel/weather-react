@@ -28,7 +28,7 @@ function MainDisplay({weatherNow, forecastWeather}) {
         const listSavedCities = localStorage.getItem("savedCities");
         if (listSavedCities) {
             const savedList = JSON.parse(listSavedCities);
-            setSavedCities(new Set(...savedList));
+            setSavedCities(new Set(savedList));
         }
     },[]);
     
