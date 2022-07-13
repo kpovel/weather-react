@@ -11,7 +11,7 @@ import {useEffect, useState} from "react";
 
 export {MainDisplay};
 
-function MainDisplay({weatherNow, forecastWeather}) {
+function MainDisplay({weatherNow, forecastWeather, searchCity}) {
     const [savedCities, setSavedCities] = useState(new Set());
     const cityName = weatherNow ? weatherNow.name : "Rio";
     const weatherIcon = weatherNow ?
@@ -30,7 +30,7 @@ function MainDisplay({weatherNow, forecastWeather}) {
             const savedList = JSON.parse(listSavedCities);
             setSavedCities(new Set(savedList));
         }
-    },[]);
+    }, []);
     
     function changeSaveCityList() {
         const isCitySaved = savedCities.has(cityName);
@@ -88,7 +88,9 @@ function MainDisplay({weatherNow, forecastWeather}) {
             </div>
             <div className="main-box__right">
                 <AddedLocation savedCities={savedCities}
-                               deleteCity={deleteCityByButtonRemove}/>
+                               deleteCity={deleteCityByButtonRemove}
+                               searchCity={searchCity}
+                />
             </div>
         </div>
     );

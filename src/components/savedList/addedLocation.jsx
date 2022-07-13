@@ -12,7 +12,11 @@ function AddedLocation(props) {
             </h2>
             <ul className="city-list">
                 {[...props.savedCities].map(city => {
-                    return <TemplateSavedCity key={city} city={city} deleteCity={props.deleteCity}/>;
+                    return <TemplateSavedCity key={city}
+                                              city={city}
+                                              deleteCity={props.deleteCity}
+                                              searchCity={props.searchCity}
+                    />;
                 })}
             </ul>
         </div>
