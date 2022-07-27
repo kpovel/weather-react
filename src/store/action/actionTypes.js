@@ -1,0 +1,4 @@
+export {SAVE_CITY, REMOVE_CITY};
+
+const SAVE_CITY = "SAVE_CITY";
+const REMOVE_CITY = "REMOVE_CITY";

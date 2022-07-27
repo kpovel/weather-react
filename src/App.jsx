@@ -65,18 +65,16 @@ function App() {
     }
     
     return (
-        <div>
-            <main className="main">
-                <div className="container">
-                    <SearchForm onHandleChange={saveLocationName}
-                                value={location}
-                                onHandleSubmit={handleSubmit}/>
-                    <MainDisplay weatherNow={weather}
-                                 forecastWeather={forecastWeather}
-                                 searchCity={searchWeatherFromSavedList}/>
-                </div>
-            </main>
-        </div>
+        <main className="main">
+            <div className="container">
+                <SearchForm onHandleChange={saveLocationName}
+                            value={location}
+                            onHandleSubmit={handleSubmit}/>
+                <MainDisplay weatherNow={weather}
+                             forecastWeather={forecastWeather}
+                             searchCity={searchWeatherFromSavedList}/>
+            </div>
+        </main>
     );
 }
 

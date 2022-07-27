@@ -7,12 +7,16 @@ import {Route, Routes} from "react-router-dom";
 import {tempToCelsius} from "../utilities/formattedTemp";
 import {formatTime} from "../utilities/formatDate";
 import {weatherForecastParams} from "./tabs/forecast/weatherForecastParams";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {addCity, removeCity} from "../store/action/action";
 
 export {MainDisplay};
 
 function MainDisplay({weatherNow, forecastWeather, searchCity}) {
-    const [savedCities, setSavedCities] = useState(new Set());
+    const savedCities = useSelector(state => new Set(state.cities));
+    const dispatch = useDispatch();
+    
     const cityName = weatherNow ? weatherNow.name : "Rio";
     const weatherIcon = weatherNow ?
         `https://openweathermap.org/img/wn/${weatherNow.weather[0].icon}@4x.png` :
@@ -27,38 +31,25 @@ function MainDisplay({weatherNow, forecastWeather, searchCity}) {
     useEffect(() => {
         const listSavedCities = localStorage.getItem("savedCities");
         if (listSavedCities) {
-            const savedList = JSON.parse(listSavedCities);
-            setSavedCities(new Set(savedList));
+            // const savedList = JSON.parse(listSavedCities);
+            // setSavedCities(new Set(savedList));
         }
     }, []);
     
     function changeSaveCityList() {
         const isCitySaved = savedCities.has(cityName);
-        
+
         if (isCitySaved) {
-            setSavedCities(prev => {
-                const newList = new Set(prev);
-                newList.delete(cityName);
-                localStorage.setItem("savedCities", JSON.stringify([...newList]));
-                return newList;
-            });
+            dispatch(removeCity(cityName));
+            
         } else {
-            setSavedCities(prev => {
-                const newList = new Set(prev);
-                newList.add(cityName);
-                localStorage.setItem("savedCities", JSON.stringify([...newList]));
-                return newList;
-            });
+            dispatch(addCity(cityName));
         }
     }
     
     function deleteCityByButtonRemove(city) {
-        setSavedCities(prev => {
-            const newList = new Set(prev);
-            newList.delete(city);
-            localStorage.setItem("savedCities", JSON.stringify([...newList]));
-            return newList;
-        });
+         dispatch(removeCity(city));
+    
     }
     
     return (

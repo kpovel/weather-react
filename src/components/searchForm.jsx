@@ -1,6 +1,4 @@
-export {SearchForm};
-
-function SearchForm(props) {
+export function SearchForm(props) {
     function handleChange(e) {
         props.onHandleChange(e.target.value);
     }
@@ -13,7 +11,7 @@ function SearchForm(props) {
     return (
         <form className="search-form" onSubmit={handleSubmit}>
             <input className="search__input" type="text" autoComplete="off" placeholder="Type the city"
-                   onChange={handleChange} value={props.value}/>
+                   onChange={handleChange} value={props.value} autoFocus={true}/>
             <button className="search__btn" type="submit"/>
         </form>
     );
