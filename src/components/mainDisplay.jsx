@@ -7,7 +7,6 @@ import {Route, Routes} from "react-router-dom";
 import {tempToCelsius} from "../utilities/formattedTemp";
 import {formatTime} from "../utilities/formatDate";
 import {weatherForecastParams} from "./tabs/forecast/weatherForecastParams";
-import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {addCity, removeCity} from "../store/action/action";
 
@@ -28,14 +27,6 @@ function MainDisplay({weatherNow, forecastWeather, searchCity}) {
     const sunset = weatherNow ? formatTime(weatherNow.sys.sunset) : "18:51";
     const forecastList = forecastWeather ? weatherForecastParams(forecastWeather.list) : "";
     
-    useEffect(() => {
-        const listSavedCities = localStorage.getItem("savedCities");
-        if (listSavedCities) {
-            // const savedList = JSON.parse(listSavedCities);
-            // setSavedCities(new Set(savedList));
-        }
-    }, []);
-    
     function changeSaveCityList() {
         const isCitySaved = savedCities.has(cityName);
 
@@ -49,7 +40,6 @@ function MainDisplay({weatherNow, forecastWeather, searchCity}) {
     
     function deleteCityByButtonRemove(city) {
          dispatch(removeCity(city));
-    
     }
     
     return (

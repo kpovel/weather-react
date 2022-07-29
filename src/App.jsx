@@ -1,18 +1,17 @@
 import "./App.css";
 import {SearchForm} from "./components/searchForm";
 import {MainDisplay} from "./components/mainDisplay";
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {setForecastWeather, setWeatherNow} from "./store/action/action";
 
 function App() {
-    const [location, setLocation] = useState("");
-    const [weather, setWeather] = useState("");
-    const [forecastWeather, setForecastWeather] = useState("");
-    const API_KEY = "4783b73cfe02019303d03a9d793cc64b";
+    const weatherData = useSelector(state => state.setWeather);
+    const weatherForecastData = useSelector(state => state.setWeatherForecastData);
+    const dispatch = useDispatch();
     
-    useEffect(() => {
-        setWeather(JSON.parse(localStorage.getItem("lastSearchedCity")));
-        setForecastWeather(JSON.parse(localStorage.getItem("lastSearchedForecast")));
-    }, []);
+    const [location, setLocation] = useState("");
+    const API_KEY = "4783b73cfe02019303d03a9d793cc64b";
     
     function saveLocationName(e) {
         setLocation(e);
@@ -42,7 +41,7 @@ function App() {
                 throw new Error(weather.message);
             }
             
-            setWeather(weather);
+            dispatch(setWeatherNow(weather));
             localStorage.setItem("lastSearchedCity", JSON.stringify(weather));
         }
         catch (err) {
@@ -56,7 +55,8 @@ function App() {
             const url = `${FORECAST_URL}?q=${city}&cnt=3&appid=${API_KEY}`;
             const response = await fetch(url);
             const forecastWeather = await response.json();
-            setForecastWeather(forecastWeather);
+            
+            dispatch(setForecastWeather(forecastWeather));
             localStorage.setItem("lastSearchedForecast", JSON.stringify(forecastWeather));
         }
         catch (err) {
@@ -70,8 +70,8 @@ function App() {
                 <SearchForm onHandleChange={saveLocationName}
                             value={location}
                             onHandleSubmit={handleSubmit}/>
-                <MainDisplay weatherNow={weather}
-                             forecastWeather={forecastWeather}
+                <MainDisplay weatherNow={weatherData}
+                             forecastWeather={weatherForecastData}
                              searchCity={searchWeatherFromSavedList}/>
             </div>
         </main>
