@@ -1,4 +1,4 @@
-import {Link, useResolvedPath, useMatch} from "react-router-dom";
+import {Link, useMatch, useResolvedPath} from "react-router-dom";
 
 export default function Navbar() {
     return (
@@ -6,6 +6,7 @@ export default function Navbar() {
             <CustomLink to="/">Now</CustomLink>
             <CustomLink to="/details">Details</CustomLink>
             <CustomLink to="/forecast">Forecast</CustomLink>
+            <CustomLink to="/help">Help</CustomLink>
         </nav>
     );
 }
@@ -16,7 +17,7 @@ function CustomLink({to, children, ...props}) {
     
     return (
         <Link to={to} {...props} className={isActive ? "main-tabs__item  main-tabs__item--active" : "main-tabs__item"}>
-                {children}
+            {children}
         </Link>
     );
 }

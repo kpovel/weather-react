@@ -1,12 +1,12 @@
-import MainTab from "./tabs/mainTab";
-import DetailsTab from "./tabs/details/detailsTab";
-import ForecastTab from "./tabs/forecast/forecastTab";
+import MainTab from "./routes/mainTab";
+import DetailsTab from "./routes/details/detailsTab";
+import ForecastTab from "./routes/forecast/forecastTab";
 import Navbar from "./navbar";
 import {AddedLocation} from "./savedList/addedLocation";
 import {Route, Routes} from "react-router-dom";
 import {tempToCelsius} from "../utilities/formattedTemp";
 import {formatTime} from "../utilities/formatDate";
-import {weatherForecastParams} from "./tabs/forecast/weatherForecastParams";
+import {weatherForecastParams} from "./routes/forecast/weatherForecastParams";
 import {useDispatch, useSelector} from "react-redux";
 import {addCity, removeCity} from "../store/action/action";
 
@@ -29,7 +29,7 @@ function MainDisplay({weatherNow, forecastWeather, searchCity}) {
     
     function changeSaveCityList() {
         const isCitySaved = savedCities.has(cityName);
-
+    
         if (isCitySaved) {
             dispatch(removeCity(cityName));
             
@@ -39,7 +39,7 @@ function MainDisplay({weatherNow, forecastWeather, searchCity}) {
     }
     
     function deleteCityByButtonRemove(city) {
-         dispatch(removeCity(city));
+        dispatch(removeCity(city));
     }
     
     return (
@@ -63,6 +63,11 @@ function MainDisplay({weatherNow, forecastWeather, searchCity}) {
                         <Route path="/forecast" element={<ForecastTab cityName={cityName}
                                                                       forecastList={forecastList}
                         />}/>
+                        <Route path="/help" element={<p>
+                            This app helps you quickly search weather and save many cities for quick access to cities.
+                            Also, in the other tab, you can find more detail and forecast weather.
+                        </p>}/>
+                        <Route path="*" element={<p>There&apos;s nothing here!</p>}/>
                     </Routes>
                 </div>
                 <Navbar/>
