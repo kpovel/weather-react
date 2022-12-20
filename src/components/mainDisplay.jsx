@@ -9,37 +9,41 @@ import {formatTime} from "../utilities/formatDate";
 import {weatherForecastParams} from "./routes/forecast/weatherForecastParams";
 import {useDispatch, useSelector} from "react-redux";
 import {addCity, removeCity} from "../store/action/action";
+import {memo} from "react";
 
-export function MainDisplay({weatherNow, forecastWeather, searchCity}) {
+export const MainDisplay = memo(function MainDisplay({searchCity}) {
+    const weatherNow = useSelector(state => state.setWeather);
+    const forecastWeather = useSelector(state => state.setWeatherForecastData);
+
     const savedCities = useSelector(state => new Set(state.cities));
     const dispatch = useDispatch();
 
-    const cityName = weatherNow ? weatherNow.name : "Rio";
-    const weatherIcon = weatherNow ?
+    const cityName = weatherNow?.name ? weatherNow.name : "Rio";
+    const weatherIcon = weatherNow?.weather ?
         `https://openweathermap.org/img/wn/${weatherNow.weather[0].icon}@4x.png` :
         "https://openweathermap.org/img/wn/02d@4x.png";
-    const temp = weatherNow ? tempToCelsius(weatherNow.main.temp) : "14°";
-    const feelsLike = weatherNow ? tempToCelsius(weatherNow.main.feels_like) : "14°";
-    const weather = weatherNow ? weatherNow.weather[0].main : "Clouds";
-    const sunrise = weatherNow ? formatTime(weatherNow.sys.sunrise) : "03:21";
-    const sunset = weatherNow ? formatTime(weatherNow.sys.sunset) : "18:51";
-    const forecastList = forecastWeather ? weatherForecastParams(forecastWeather.list) : "";
-    
+    const temp = weatherNow?.main?.temp ? tempToCelsius(weatherNow.main.temp) : "14°";
+    const feelsLike = weatherNow?.main?.feels_like ? tempToCelsius(weatherNow.main.feels_like) : "14°";
+    const weather = weatherNow?.weather ? weatherNow.weather[0].main : "Clouds";
+    const sunrise = weatherNow?.sys.sunrise ? formatTime(weatherNow.sys.sunrise) : "03:21";
+    const sunset = weatherNow?.sys?.sunset ? formatTime(weatherNow.sys.sunset) : "18:51";
+    const forecastList = forecastWeather?.list ? weatherForecastParams(forecastWeather.list) : "";
+
     function changeSaveCityList() {
         const isCitySaved = savedCities.has(cityName);
-    
+
         if (isCitySaved) {
             dispatch(removeCity(cityName));
-            
+
         } else {
             dispatch(addCity(cityName));
         }
     }
-    
+
     function deleteCityByButtonRemove(city) {
         dispatch(removeCity(city));
     }
-    
+
     return (
         <div className="main-box">
             <div className="main-box__left">
@@ -78,4 +82,4 @@ export function MainDisplay({weatherNow, forecastWeather, searchCity}) {
             </div>
         </div>
     );
-}
+});
