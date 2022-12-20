@@ -10,12 +10,10 @@ import {weatherForecastParams} from "./routes/forecast/weatherForecastParams";
 import {useDispatch, useSelector} from "react-redux";
 import {addCity, removeCity} from "../store/action/action";
 
-export {MainDisplay};
-
-function MainDisplay({weatherNow, forecastWeather, searchCity}) {
+export function MainDisplay({weatherNow, forecastWeather, searchCity}) {
     const savedCities = useSelector(state => new Set(state.cities));
     const dispatch = useDispatch();
-    
+
     const cityName = weatherNow ? weatherNow.name : "Rio";
     const weatherIcon = weatherNow ?
         `https://openweathermap.org/img/wn/${weatherNow.weather[0].icon}@4x.png` :
