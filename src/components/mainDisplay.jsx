@@ -65,10 +65,19 @@ export const MainDisplay = memo(function MainDisplay({searchCity}) {
                         <Route path="/forecast" element={<ForecastTab cityName={cityName}
                                                                       forecastList={forecastList}
                         />}/>
-                        <Route path="/help" element={<p>
-                            This app helps you quickly search weather and save many cities for quick access to cities.
-                            Also, in the other tab, you can find more detail and forecast weather.
-                        </p>}/>
+                        <Route path="/description" element={
+                            <div className="weather-description">
+                                <h2 className="weather-description__title">Weather App</h2>
+                                <p className="weather-description__overview">
+                                    The weather app is an easy-to-use and reliable source of accurate weather
+                                    information. It provides current conditions and forecasts for locations around the
+                                    world, allowing users to quickly check the weather in their area. Additionally,
+                                    users can access detailed hourly forecasts and stay informed of upcoming changes.
+                                    The app features a clean and user-friendly interface, making navigation and use
+                                    simple. With this app, users can stay up-to-date on their local weather, no matter
+                                    where they are.
+                                </p>
+                            </div>}/>
                         <Route path="*" element={<p>There&apos;s nothing here!</p>}/>
                     </Routes>
                 </div>
