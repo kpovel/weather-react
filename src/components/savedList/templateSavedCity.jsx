@@ -1,8 +1,8 @@
-export function TemplateSavedCity(props) {
+export function TemplateSavedCity({city, deleteCity, searchCity}) {
     return (
         <li className="city-list__item">
-            <div className="city" onClick={() => props.searchCity(props.city)}>{props.city}</div>
-            <button className="city-list__close-btn" onClick={() => props.deleteCity(props.city)}/>
+            <p className="city" onClick={() => searchCity(city)}>{city}</p>
+            <button className="city-list__close-btn" onClick={() => deleteCity(city)}/>
         </li>
     );
 }

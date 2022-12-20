@@ -1,8 +1,8 @@
-export function WeatherIndicator(props) {
+export function WeatherIndicator({indicator, value}) {
     return (
         <li className="weather-detail__list-item">
-            {props.indicator}
-            <span className="temperature">{props.value}</span>
+            {indicator}
+            <span className="temperature">{value}</span>
         </li>
     );
 }
