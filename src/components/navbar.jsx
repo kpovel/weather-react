@@ -6,7 +6,7 @@ export default function Navbar() {
             <CustomLink to="/">Now</CustomLink>
             <CustomLink to="/details">Details</CustomLink>
             <CustomLink to="/forecast">Forecast</CustomLink>
-            <CustomLink to="/help">Help</CustomLink>
+            <CustomLink to="/description">Description</CustomLink>
         </nav>
     );
 }
