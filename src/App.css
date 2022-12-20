@@ -124,6 +124,9 @@ body {
   border-left: 1px solid #000;
 }
 
+.main-tabs__item:first-child {
+  border-left: none;
+}
 
 .main-tabs__item--active {
   background-color: #000;
