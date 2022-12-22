@@ -24,7 +24,6 @@ function App() {
             }
 
             dispatch(setWeatherNow(weather));
-            localStorage.setItem("lastSearchedCity", JSON.stringify(weather));
         }
         catch (err) {
             alert(err);
@@ -39,7 +38,6 @@ function App() {
             const forecastWeather = await response.json();
 
             dispatch(setForecastWeather(forecastWeather));
-            localStorage.setItem("lastSearchedForecast", JSON.stringify(forecastWeather));
         }
         catch (err) {
             alert(err);
