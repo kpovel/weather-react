@@ -30,7 +30,7 @@ export function setForecastWeather(data) {
     };
 }
 
-export function getWeather(city) {
+function getWeatherNow(city) {
     return async function (dispatch) {
         const SERVER_URL = "https://api.openweathermap.org/data/2.5/weather";
         const url = `${SERVER_URL}?q=${city}&appid=${API_KEY}`;
@@ -52,7 +52,7 @@ export function getWeather(city) {
     };
 }
 
-export function getWeatherForecast(city) {
+function getWeatherForecast(city) {
     return async function (dispatch) {
         const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast";
 
@@ -65,6 +65,27 @@ export function getWeatherForecast(city) {
         }
         catch (err) {
             alert(err);
+        }
+    };
+}
+
+function shouldUpdateWeatherData(state, city) {
+    const previousSearchedCity = state.setWeather.name;
+    return previousSearchedCity !== city;
+}
+
+export function getWeather(city) {
+    return (dispatch, getState) => {
+        if (shouldUpdateWeatherData(getState(), city)) {
+            try {
+                dispatch(getWeatherNow(city));
+                dispatch(getWeatherForecast(city));
+            }
+            catch (err) {
+                alert(err);
+            }
+        } else {
+            return Promise.resolve();
         }
     };
 }
