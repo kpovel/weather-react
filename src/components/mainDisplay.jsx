@@ -25,7 +25,7 @@ export const MainDisplay = memo(function MainDisplay({searchCity}) {
     const temp = weatherNow?.main?.temp ? tempToCelsius(weatherNow.main.temp) : "14°";
     const feelsLike = weatherNow?.main?.feels_like ? tempToCelsius(weatherNow.main.feels_like) : "14°";
     const weather = weatherNow?.weather ? weatherNow.weather[0].main : "Clouds";
-    const sunrise = weatherNow?.sys.sunrise ? formatTime(weatherNow.sys.sunrise) : "03:21";
+    const sunrise = weatherNow?.sys?.sunrise ? formatTime(weatherNow.sys.sunrise) : "03:21";
     const sunset = weatherNow?.sys?.sunset ? formatTime(weatherNow.sys.sunset) : "18:51";
     const forecastList = forecastWeather?.list ? weatherForecastParams(forecastWeather.list) : "";
 
