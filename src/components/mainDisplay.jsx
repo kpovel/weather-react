@@ -8,14 +8,14 @@ import {tempToCelsius} from "../utilities/formattedTemp";
 import {formatTime} from "../utilities/formatDate";
 import {weatherForecastParams} from "./routes/forecast/weatherForecastParams";
 import {useDispatch, useSelector} from "react-redux";
-import {addCity, removeCity} from "../store/action/action";
+import {addCity, removeCity} from "../store/slices";
 import {memo} from "react";
 
 export const MainDisplay = memo(function MainDisplay({searchCity}) {
-    const weatherNow = useSelector(state => state.setWeather);
-    const forecastWeather = useSelector(state => state.setWeatherForecastData);
+    const weatherNow = useSelector(state => state.currentWeather);
+    const forecastWeather = useSelector(state => state.weatherForecast);
 
-    const savedCities = useSelector(state => new Set(state.cities));
+    const savedCities = useSelector(state => state.savedCities);
     const dispatch = useDispatch();
 
     const cityName = weatherNow?.name ? weatherNow.name : "Rio";
@@ -30,11 +30,10 @@ export const MainDisplay = memo(function MainDisplay({searchCity}) {
     const forecastList = forecastWeather?.list ? weatherForecastParams(forecastWeather.list) : "";
 
     function changeSaveCityList() {
-        const isCitySaved = savedCities.has(cityName);
+        const isCitySaved = new Set(savedCities).has(cityName);
 
         if (isCitySaved) {
             dispatch(removeCity(cityName));
-
         } else {
             dispatch(addCity(cityName));
         }
