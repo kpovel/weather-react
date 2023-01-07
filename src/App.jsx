@@ -3,7 +3,7 @@ import {SearchForm} from "./components/searchForm";
 import {MainDisplay} from "./components/mainDisplay";
 import {useCallback, useState} from "react";
 import {useDispatch} from "react-redux";
-import {getWeather} from "./store/action/action";
+import {fetchWeatherForecast, fetchCurrentWeather} from "./store/slices";
 
 function App() {
     const dispatch = useDispatch();
@@ -13,13 +13,16 @@ function App() {
         setLocation(e);
     }
 
-    const handleSubmit = useCallback(async () => {
-       await dispatch(getWeather(location));
+    const handleSubmit = useCallback(() => {
+        dispatch(fetchCurrentWeather(location));
+        dispatch(fetchWeatherForecast(location));
+
         setLocation("");
     }, [dispatch, location]);
 
-    const searchWeatherFromSavedList = useCallback(async (city) => {
-        await dispatch(getWeather(city));
+    const searchWeatherFromSavedList = useCallback(city => {
+        dispatch(fetchCurrentWeather(city));
+        dispatch(fetchWeatherForecast(city));
     }, [dispatch]);
 
     return (

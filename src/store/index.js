@@ -1,7 +1,7 @@
 import {configureStore} from "@reduxjs/toolkit";
 import thunkMiddleware from "redux-thunk";
 import {createLogger} from "redux-logger";
-import weather from "./reducers";
+import weather from "./slices";
 
 const loggerMiddleware = createLogger();
 

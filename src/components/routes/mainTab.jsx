@@ -1,5 +1,5 @@
 export default function MainTab({changeSaveCityList, cityName, icon, savedCities, temp}) {
-    const isCitySaved = savedCities.has(cityName);
+    const isCitySaved = new Set(savedCities).has(cityName);
     const styleButton = isCitySaved ? "checked" : "noChecked";
 
     return (
