@@ -12,8 +12,8 @@ import {addCity, removeCity} from "../store/slices";
 import {memo} from "react";
 
 export const MainDisplay = memo(function MainDisplay({searchCity}) {
-    const weatherNow = useSelector(state => state.currentWeather);
-    const forecastWeather = useSelector(state => state.weatherForecast);
+    const weatherNow = useSelector(state => state.weatherData.currentWeather);
+    const forecastWeather = useSelector(state => state.weatherData.weatherForecast);
 
     const savedCities = useSelector(state => state.savedCities);
     const dispatch = useDispatch();

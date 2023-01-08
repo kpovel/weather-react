@@ -23,33 +23,18 @@ export const {addCity, removeCity} = savedCities.actions;
 
 
 export const fetchCurrentWeather = createAsyncThunk(
-    "currentWeather/setCurrentWeather",
+    "weatherData/setCurrentWeather",
     async (city) => {
         const SERVER_URL = "https://api.openweathermap.org/data/2.5/weather";
         const url = `${SERVER_URL}?q=${city}&appid=${API_KEY}`;
         const response = await fetch(url);
-        return await response.json();
+        return response.json();
     }
 );
 
-const setCurrentWeather = createSlice({
-    name: "currentWeather",
-    initialState: JSON.parse(localStorage.getItem("currentWeather")) || "",
-    reducers: {},
-    extraReducers: builder => {
-        builder.addCase(fetchCurrentWeather.fulfilled, (state, action) => {
-            state = action.payload;
-            localStorage.setItem("currentWeather", JSON.stringify(state));
-            return state;
-        });
-    }
-});
-
-
 export const fetchWeatherForecast = createAsyncThunk(
-    "weatherForecast/setWeatherForecast",
+    "weatherData/setWeatherForecast",
     async (city) => {
-
         const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast";
         const url = `${FORECAST_URL}?q=${city}&cnt=3&appid=${API_KEY}`;
         const response = await fetch(url);
@@ -57,14 +42,22 @@ export const fetchWeatherForecast = createAsyncThunk(
     }
 );
 
-const setWeatherForecast = createSlice({
-    name: "weatherForecast",
-    initialState: JSON.parse(localStorage.getItem("weatherForecast")) || "",
+const weatherData = createSlice({
+    name: "weatherData",
+    initialState: {
+        currentWeather: JSON.parse(localStorage.getItem("currentWeather")) || [],
+        weatherForecast: JSON.parse(localStorage.getItem("weatherForecast")) || []
+    },
     reducers: {},
     extraReducers: builder => {
+        builder.addCase(fetchCurrentWeather.fulfilled, (state, action) => {
+            state.currentWeather = action.payload;
+            localStorage.setItem("currentWeather", JSON.stringify(state.currentWeather));
+            return state;
+        });
         builder.addCase(fetchWeatherForecast.fulfilled, (state, action) => {
-            state = action.payload;
-            localStorage.setItem("weatherForecast", JSON.stringify(state));
+            state.weatherForecast = action.payload;
+            localStorage.setItem("weatherForecast", JSON.stringify(state.weatherForecast));
             return state;
         });
     }
@@ -72,8 +65,7 @@ const setWeatherForecast = createSlice({
 
 const weather = combineReducers({
     savedCities: savedCities.reducer,
-    currentWeather: setCurrentWeather.reducer,
-    weatherForecast: setWeatherForecast.reducer
+    weatherData: weatherData.reducer
 });
 
 export default weather;
